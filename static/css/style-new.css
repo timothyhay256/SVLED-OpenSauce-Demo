@@ -1,0 +1,317 @@
+@font-face {
+  font-family: 'CyberpunkWaifus';
+  src: url('../fonts/CyberpunkWaifus.ttf');
+}
+
+h1 {
+  text-align: center;
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+  color: #f8f8f2
+}
+
+.box1 {
+  background-color: #000;
+  color: #fff;
+  opacity: .5;
+}
+
+/* html {
+  background-color: #282a36
+} */
+
+#main-text {
+  color: #f8f8f2;
+  width: 95%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  height: 88vh;
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+  background-color: #44475a;
+  min-height: 100%;
+  background: linear-gradient(0deg, rgb(94, 77, 47), rgba(0, 0, 0, 0.2)), url(../images/open-sussy.jpg);
+  border: 5px solid rgba(245, 245, 255, .5);
+  background-size: cover;
+  border-radius: 12px;
+  color: #f8f8f2;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, .3);
+}
+
+
+#row-0 {
+  display: flex;
+  justify-content: space-evenly;
+  z-index: 1;
+}
+
+#row-1 {
+  display: flex;
+  justify-content: space-evenly;
+  z-index: 1;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+#overlay {
+  min-height: 100%;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../images/bkg_by_hexh.png');
+  background-size: cover;
+  image-rendering: pixelated;
+}
+
+#buttons {
+  text-align: center;
+  /* margin-top: 15; */
+  backdrop-filter: blur(7px) saturate(50%);
+  -webkit-backdrop-filter: blur(7px) saturate(50%);
+  background-color: rgba(111, 148, 225, 0.2);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+  width: 80%;
+  margin: auto;
+  /* margin-top: 10%; */
+  border-radius: 15px;
+}
+
+
+
+ul.c-ul {
+  display: inline-block;
+  text-align: left;
+}
+
+a {
+  color: #ff79c6;
+}
+
+#glass {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.container {
+  /* display: block; */
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'CyberpunkWaifus';
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: rgba(22, 42, 85, 0.534);
+  border-radius: 8px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input~.checkmark {
+  background-color: rgba(52, 85, 155, 0.734);
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked~.checkmark {
+  background-color: #28439e;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.dropbtn {
+  background-color: #210409;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 3%;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #462d32;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+  border-radius: 8px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+
+}
+
+.dropdown-content a:hover {
+  background-color: #b3727f;
+  border-radius: 8px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  opacity: 1;
+  pointer-events: all;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #b3727f;
+}
+
+button {
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+  backdrop-filter: blur(7px) saturate(50%);
+  -webkit-backdrop-filter: blur(7px) saturate(50%);
+  background-color: rgba(52, 85, 155, 0.734);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: rgba(87, 111, 164, 0.734);
+  color: white;
+  box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+}
+
+input,
+select {
+  /* width: 100%; */
+  padding: 12px 20px;
+  height: 15%;
+  margin: 8px 0;
+  display: inline-block;
+  border: 0px solid #232634;
+  border-radius: 8px;
+  box-sizing: border-box;
+  backdrop-filter: blur(7px) saturate(50%);
+  -webkit-backdrop-filter: blur(7px) saturate(50%);
+  background-color: rgba(52, 85, 155, 0.734);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 17px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 0;
+  transition: box-shadow 1s;
+  border-radius: 8px;
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+}
+
+
+select option[value="attention"] {
+  background: #e594a4;
+  border-radius: 8px;
+}
+
+select option[value="meditation"] {
+  background: #e594a4;
+  border-radius: 8px;
+}
+
+
+input[type=submit] {
+  /* width: 100%; */
+  height: 15%;
+  backdrop-filter: blur(7px) saturate(50%);
+  -webkit-backdrop-filter: blur(7px) saturate(50%);
+  background-color: rgba(52, 85, 155, 0.734);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: rgba(87, 111, 164, 0.734);
+}
+
+#control-text {
+  margin: 9px 0px;
+  font-family: CyberpunkWaifus, Helvetica, sans-serif;
+  color: #f8f8f2;
+  font-size: 36px;
+}

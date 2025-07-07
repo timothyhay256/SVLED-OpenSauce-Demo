@@ -1,0 +1,28 @@
+[package]
+name = "SVLED-Opensauce-Demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+env_logger = "0.11.6"
+gumdrop = "0.8.1"
+log = "0.4.22"
+svled = { path = "/home/pretty/projects/Stochastic-Volumetric-LED-Display", default-features = false, features = [
+    "scan",
+] }
+serde = { version = "1.0.216", features = ["derive"] }
+toml = "0.8.19"
+rocket = { version = "0.5.1", features = ["json"] }
+opencv = { version = "0.93.5", default-features = false, features = [
+    "highgui",
+    "videoio",
+    "imgproc",
+    "imgcodecs",
+], optional = true }
+
+[features]
+default = ["scan"]
+scan = ["dep:opencv"]
+
+[lints.rust]
+unsafe_code = "forbid"

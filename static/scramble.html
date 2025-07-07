@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scramble Demo</title>
+</head>
+
+<body id="overlay">
+    <link rel="stylesheet" href="/static/css/style-new.css">
+
+    <div id="buttons" style="margin-top: 0%;">
+        <h1 style="color: rgb(255, 255, 255);">Scramble the LEDS and hit recalibrate!</h1>
+        <img width="600" height="400" src="/video-cam-1" alt="Live stream" />
+
+        <img width="600" height="400" src="/video-cam-2" alt="Live stream" />
+        <br>
+        <video id="videoElement" width="600" height="400" autoplay></video>
+        <br>
+        <button onclick="startScramble()">Recalibrate</button>
+        <button onclick="startCapture()">Capture Screen</button>
+
+        <script>
+            let scrambleActive = false;
+
+            function startScramble() {
+                const endpoint = scrambleActive ? '/recalibrate' : '/start-scramble';
+
+                fetch(endpoint, {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        scrambleActive = !scrambleActive;
+                    } else {
+                        console.error('Request failed');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            async function startCapture() {
+                try {
+                    // Request to capture the screen (entire screen, specific window, or tab)
+                    const stream = await navigator.mediaDevices.getDisplayMedia({
+                        video: { cursor: "never" } // "always" shows the cursor, you can change to "motion" for only motion or "never" for no cursor
+                    });
+
+                    // Get the video element to display the captured screen
+                    const videoElement = document.getElementById('videoElement');
+
+                    // Set the captured stream as the source for the video element
+                    videoElement.srcObject = stream;
+
+                    // Optionally, you can stop the stream once the user is done
+                    stream.getTracks().forEach(track => {
+                        track.onended = () => {
+                            console.log("Screen capture ended.");
+                        };
+                    });
+
+                } catch (err) {
+                    console.error("Error: " + err);
+                    alert("Failed to capture screen: " + err);
+                }
+            }
+        </script>
+    </div>
+</body>
+
+</html>
