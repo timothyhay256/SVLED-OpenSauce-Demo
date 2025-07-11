@@ -30,14 +30,62 @@
                     method: 'POST'
                 }).then(response => {
                     if (response.ok) {
-                        scrambleActive = !scrambleActive;
+                        scrambleActive = true;
                     } else {
                         console.error('Request failed');
                     }
                 }).catch(error => {
                     console.error('Error:', error);
                 });
+
+                // setTimeout(function () {
+                //     fetch('/recalibrate_success')
+                //         .then(response => response.text()) // or .json() depending on your server's response
+                //         .then(result => {
+                //             if (result === "FAIL") {
+                //                 setTimeout(function () {
+                //                     // Do something if the response is "FAIL"
+                //                     fetch(endpoint, {
+                //                         method: 'POST'
+                //                     }).then(response => {
+                //                         if (response.ok) {
+                //                             scrambleActive = true;
+                //                         } else {
+                //                             console.error('Request failed');
+                //                         }
+                //                     }).catch(error => {
+                //                         console.error('Error:', error);
+                //                     });
+                //                 }, 500);
+                //             } else {
+                //                 console.log("Recalibration succeeded:", result);
+                //             }
+                //         })
+                //         .catch(error => {
+                //             console.error("Error fetching /recalibrate-success:", error);
+                //             // You can also perform fallback here
+                //         });
+                // }, 800); // delay in milliseconds (2000ms = 2s)
+
+                // sleep(300);
+
+                // fetch(endpoint, {
+                //     method: 'POST'
+                // }).then(response => {
+                //     if (response.ok) {
+                //         scrambleActive = !scrambleActive;
+                //     } else {
+                //         console.error('Request failed');
+                //     }
+                // }).catch(error => {
+                //     console.error('Error:', error);
+                // });
             }
+
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
 
             async function startCapture() {
                 try {

@@ -1,5 +1,6 @@
 use std::{
     env,
+    fs::File,
     path::Path,
     sync::{Arc, Mutex},
     time::Duration,
@@ -14,7 +15,7 @@ use opencv::{
 use rocket::{
     fs::{FileServer, NamedFile},
     get,
-    http::ContentType,
+    http::{ContentType, Status},
     post,
     response::{stream::ByteStream, Redirect},
     tokio::time::sleep,
@@ -44,6 +45,7 @@ pub struct SvledManagerHolder {
     pub config_holder_svled: Config,
     pub frame_buffer: Option<Arc<Mutex<GetEventsFrameBuffer>>>,
     pub frame_source: Option<Arc<Mutex<bool>>>,
+    pub restart_calib_success: Arc<Mutex<bool>>,
 }
 
 #[get("/")]
@@ -68,6 +70,7 @@ async fn scramble_demo_rocket(manager: &State<Arc<Mutex<SvledManagerHolder>>>) -
             let crop_override_tuple = mgr
                 .config_holder_svled
                 .advanced
+                .transform
                 .crop_override
                 .as_ref()
                 .map(|v| ((v[0], v[1], v[2], v[3]), (v[4], v[5], v[6], v[7])));
@@ -194,6 +197,33 @@ async fn error() -> Result<NamedFile, std::io::Error> {
     NamedFile::open("static/error.html").await
 }
 
+#[post("/recalibrate")]
+fn recalibrate() -> Status {
+    match File::create("end_loop") {
+        Ok(_) => Status::Ok,
+        Err(e) => {
+            error!("Failed to create file: {}", e);
+            Status::InternalServerError
+        }
+    }
+}
+
+#[get("/recalibrate_success")]
+fn recalibrate_success(manager: &State<Arc<Mutex<SvledManagerHolder>>>) -> String {
+    let manager = Arc::clone(manager.inner());
+
+    match *manager
+        .lock()
+        .unwrap()
+        .restart_calib_success
+        .lock()
+        .unwrap()
+    {
+        true => return "SUCCESS".to_string(),
+        false => return "FAIL".to_string(),
+    };
+}
+
 #[catch(500)]
 fn internal_error(_req: &Request) -> Redirect {
     Redirect::to(uri!("/error"))
@@ -225,6 +255,7 @@ async fn main() -> Result<(), Box<rocket::Error>> {
         config_holder_svled: config_holder,
         frame_buffer: None,
         frame_source: None,
+        restart_calib_success: Arc::new(Mutex::new(true)),
     }));
 
     if opts.scramble {
@@ -260,6 +291,7 @@ async fn main() -> Result<(), Box<rocket::Error>> {
                 shared_frame_2: Mat::default(),
             }))),
             frame_source: Some(Arc::new(Mutex::new(true))),
+            restart_calib_success: Arc::new(Mutex::new(true)),
         }));
 
         let rocket = rocket::build()
@@ -272,6 +304,8 @@ async fn main() -> Result<(), Box<rocket::Error>> {
                     video_stream_cam_2,
                     scramble_demo_path,
                     scramble_demo_rocket,
+                    recalibrate,
+                    recalibrate_success
                 ],
             )
             .mount("/static", FileServer::from("./static"))
